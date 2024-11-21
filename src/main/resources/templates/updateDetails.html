@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Details</title>
+</head>
+<body>
+    <h1> Edit the details</h1>
+        <form th:action="@{/person/updateDetails}" th:object="${toUpdate}" method="POST">
+            <div>
+                <div>
+                    <!-- hide this field so user cannot edit this -->
+                     <input type="hidden" id="id" th:field="*{id}">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" th:field="*{firstName}" >
+                    <!-- since "person" attribute in the model is initialized will null parameters, -->
+                     <!-- the cells will display nothing -->
+                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></p>
+                </div>
+                <br>
+                <div>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" th:field="*{lastName}">
+                    <!-- since "person" attribute in the model is initialized will null parameters, -->
+                     <!-- the cells will display nothing -->
+                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"></p>
+                </div>
+                <br>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" th:field="*{email}" >
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></p>
+                </div>
+                <br>
+                <div>
+                    <label for="phoneNumber">Phone</label>
+                    <input type="text" id="phoneNumber" th:field="*{phoneNumber}" >
+                    <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error"></p>
+                </div>
+                <br>
+                <div>
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}" >
+                    <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" th:errorclass="error"></p>
+                </div>
+                <br>
+                <div>
+                    <input type="submit" value="Update">
+                </div>
+            </div>
+        </form>
+</body>
+</html>
