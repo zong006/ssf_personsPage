@@ -54,7 +54,7 @@ public class PersonController {
     public String deletePerson(@ModelAttribute(value="person") Person p, Model model) throws IOException, IllegalArgumentException, IllegalAccessException, ParseException{
         // the post request submits person attributes and binds these values to the Person p in this method
         personService.deletePerson(p);
-        personService.updateCSV(p, true);
+        
         return "redirect:/persons";
     }
 
@@ -77,7 +77,7 @@ public class PersonController {
         // and binds it to the model, and the Person belonging to "toUpdate" key is passed here as a parameter 
     
         personService.updatePerson(p);
-        personService.updateCSV(p, false);
+        
         List<Person> personList = personService.getPersons();
         model.addAttribute("persons", personList);
         return "redirect:/persons";
@@ -100,7 +100,7 @@ public class PersonController {
         }
 
         personService.addPerson(p);
-        personService.saveData(p, DataDir.filePath);
+        
         List<Person> personList = personService.getPersons();
         model.addAttribute("persons", personList);
         return "redirect:/persons";

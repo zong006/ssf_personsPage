@@ -67,12 +67,6 @@ public class Person {
     }
 
     public void setId(String id){
-        // if (id==null){
-        //     this.id = UUID.randomUUID().toString().substring(0,8);
-        // }   
-        // else {
-        //     this.id = id;
-        // }
         this.id = id;
     }
    
