@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import vttp.ssf_person_12.data.DataDir;
@@ -48,6 +48,12 @@ public class PersonService implements DataDir{
         br.close();
         fr.close();
         return personList;
+    }
+
+    public Person getPersonById(String id) throws IOException, ParseException{
+        List<Person> personList = getPersons();
+        Optional<Person> person = personList.stream().filter(p -> p.getId().equals(id)).findFirst();
+        return person.isPresent()? person.get() : null;
     }
 
     public void deletePerson(Person p) throws IOException, ParseException{

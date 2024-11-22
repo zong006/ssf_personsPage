@@ -3,7 +3,6 @@ package vttp.ssf_person_12.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
@@ -58,10 +58,10 @@ public class PersonController {
         return "redirect:/persons";
     }
 
-    @PostMapping("/person/update")
-    public String updatePerson(@ModelAttribute(value="person") Person p, Model model){
-        // the post request submits person attributes and binds these values to the Person p in this method
-        // the attributes of p must be displayed on the page of updateDetails.html for the user to edit
+    @GetMapping("/person/update/{id}")
+    public String updatePerson(@PathVariable String id, Model model) throws IOException, ParseException{
+        
+        Person p = personService.getPersonById(id);
         model.addAttribute("toUpdate", p);
         
         return "updateDetails";
