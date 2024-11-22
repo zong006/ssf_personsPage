@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
-import vttp.ssf_person_12.data.DataDir;
 import vttp.ssf_person_12.model.Person;
 import vttp.ssf_person_12.service.PersonService;
 
