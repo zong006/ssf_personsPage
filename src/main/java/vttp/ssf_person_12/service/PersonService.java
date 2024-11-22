@@ -8,12 +8,12 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vttp.ssf_person_12.data.DataDir;
 import vttp.ssf_person_12.model.Person;
 import vttp.ssf_person_12.repo.PersonRepo;
+import vttp.ssf_person_12.utility.Util;
 
 @Service
-public class PersonService implements DataDir{
+public class PersonService implements Util{
 
     @Autowired
     PersonRepo personRepo;
@@ -22,6 +22,7 @@ public class PersonService implements DataDir{
 
         List<Person> personList = new ArrayList<>();
         Set<String> keys = personRepo.getKeys();
+        
         for (String key : keys){
             String entry = personRepo.getPersonById(key);
             Person p = generatePersonFromRedis(key, entry);
@@ -31,24 +32,20 @@ public class PersonService implements DataDir{
     }
 
     public Person getPersonById(String id) throws IOException, ParseException{
-        List<Person> personList = getPersons();
-        Optional<Person> person = personList.stream().filter(p -> p.getId().equals(id)).findFirst();
-        return person.isPresent()? person.get() : null;
+        String entry = personRepo.getPersonById(id);
+        return generatePersonFromRedis(id, entry);
     }
 
     public String deletePerson(Person p) throws IOException, ParseException{
-        
         return (personRepo.deleteById(p.getId()))? "deleted" : "not successful";
     }
 
     public void addPerson(Person p) throws IOException, ParseException, IllegalArgumentException, IllegalAccessException{
-
         String entry = parsePerson(p);
         personRepo.create(p.getId(), entry);
     }
 
     public void updatePerson(Person p) throws IOException, ParseException, IllegalArgumentException, IllegalAccessException{
-
         personRepo.deleteById(p.getId());
         String entry = parsePerson(p);
         personRepo.create(p.getId(), entry);

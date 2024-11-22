@@ -4,28 +4,30 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import vttp.ssf_person_12.data.DataDir;
+import vttp.ssf_person_12.utility.Util;
 
 @Repository
-public class PersonRepo implements DataDir{
+public class PersonRepo implements Util{
     
     @Autowired
+    @Qualifier(Util.template)
     RedisTemplate<String, String> stringTemplate;
 
     public boolean create(String id, String entry){
-        stringTemplate.opsForHash().put(DataDir.redisKey, id, entry);
+        stringTemplate.opsForHash().put(Util.redisKey, id, entry);
         return true;
     }
 
     public String getPersonById(String id){
-        return (String) stringTemplate.opsForHash().get(DataDir.redisKey, id);
+        return (String) stringTemplate.opsForHash().get(Util.redisKey, id);
     }
 
     public boolean deleteById(String id){
-        long number = stringTemplate.opsForHash().delete(DataDir.redisKey, id);
+        long number = stringTemplate.opsForHash().delete(Util.redisKey, id);
         return (number>0)? true : false;
     }
 
@@ -35,7 +37,7 @@ public class PersonRepo implements DataDir{
     }
 
     public Set<String> getKeys(){
-        Set<Object> keys = stringTemplate.opsForHash().keys(DataDir.redisKey);
+        Set<Object> keys = stringTemplate.opsForHash().keys(Util.redisKey);
         return keys.stream().map(k -> (String) k).collect(Collectors.toSet());
     }
 }
