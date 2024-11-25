@@ -14,31 +14,28 @@ import vttp.ssf_person_12.utility.Util;
 @Configuration
 public class RedisConfig{
 
-    // slide 17
     @Value("${spring.data.redis.host}")
     private String redisHost;
 
     @Value("${spring.data.redis.port}")
     private int redisPort;
 
-    // @Value("${spring.data.redis.username}")
-    // private String redisUsername;
+    @Value("${spring.data.redis.username}")
+    private String redisUsername;
 
-    // @Value("${spring.data.redis.password}")
-    // private String redisPassword;
+    @Value("${spring.data.redis.password}")
+    private String redisPassword;
 
-
-    // slide 18
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
         config.setHostName(redisHost);
         config.setPort(redisPort);
 
-        // if (redisUsername.trim().length() > 0){
-        //     config.setUsername(redisUsername);
-        //     config.setPassword(redisPassword);
-        // }
+        if (redisUsername.trim().length() > 0){
+            config.setUsername(redisUsername);
+            config.setPassword(redisPassword);
+        }
 
         JedisClientConfiguration jcc =  JedisClientConfiguration.builder().build();
         JedisConnectionFactory jcf = new JedisConnectionFactory(config, jcc);
@@ -58,6 +55,4 @@ public class RedisConfig{
 
         return template;
     }
-
-
 }
