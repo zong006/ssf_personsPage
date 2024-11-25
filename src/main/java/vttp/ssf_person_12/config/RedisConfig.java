@@ -9,7 +9,6 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import jakarta.annotation.PostConstruct;
 import vttp.ssf_person_12.utility.Util;
 
 @Configuration
