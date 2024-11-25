@@ -9,6 +9,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import jakarta.annotation.PostConstruct;
 import vttp.ssf_person_12.utility.Util;
 
 @Configuration
@@ -20,11 +21,11 @@ public class RedisConfig{
     @Value("${spring.data.redis.port}")
     private int redisPort;
 
-    @Value("${spring.data.redis.username}")
-    private String redisUsername;
+    // @Value("${spring.data.redis.username}")
+    // private String redisUsername;
 
-    @Value("${spring.data.redis.password}")
-    private String redisPassword;
+    // @Value("${spring.data.redis.password}")
+    // private String redisPassword;
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){
@@ -32,10 +33,10 @@ public class RedisConfig{
         config.setHostName(redisHost);
         config.setPort(redisPort);
 
-        if (redisUsername.trim().length() > 0){
-            config.setUsername(redisUsername);
-            config.setPassword(redisPassword);
-        }
+        // if (redisUsername.trim().length() > 0){
+        //     config.setUsername(redisUsername);
+        //     config.setPassword(redisPassword);
+        // }
 
         JedisClientConfiguration jcc =  JedisClientConfiguration.builder().build();
         JedisConnectionFactory jcf = new JedisConnectionFactory(config, jcc);
@@ -55,4 +56,5 @@ public class RedisConfig{
 
         return template;
     }
+
 }
