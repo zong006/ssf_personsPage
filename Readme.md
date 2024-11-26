@@ -11,6 +11,10 @@
 - docker run -it -p <port number>:3000 <name of programme> 
 - docker ps 
 - docker stop <name of programmes>
+Other docker commands:
+- docker rmi -f <image name>
+- docker images ls
+-docker images prune
 
 ### To run via railway
 - Redis requires user, password. Together with host and port, specify these as environment variables in application.properties file
