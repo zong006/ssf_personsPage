@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- this personForm requires a Person object to function -->
+     <!-- thus the controller needs to set up an attribute of Person type -->
+    <form th:action="@{/person/add}" method="post" th:object="${person}">
+        <div>
+            <div>
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" th:field="*{firstName}" placeholder="First Name">
+                <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></p>
+            </div>
+            <br>
+            <div>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name">
+                <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"></p>
+            </div>
+            <br>
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" th:field="*{email}" >
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></p>
+            </div>
+            <br>
+            <div>
+                <label for="phoneNumber">Phone</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" >
+                <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error"></p>
+            </div>
+            <br>
+            <div>
+                <label for="dateOfBirth">Date of Birth</label>
+                <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}" placeholder="yyyy-MM-dd">
+                <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" th:errorclass="error"></p>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Create">
+            </div>
+        </div>
+    </form>
+</body>
+</html>

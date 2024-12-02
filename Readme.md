@@ -9,6 +9,7 @@
 ### To run using Docker
 - docker build -t <name of programme> .
 - docker run -it -p <port number>:3000 <name of programme> 
+<!-- cos port 3000 is specified in dockerfile -->
 - docker ps 
 - docker stop <name of programmes>
 Other docker commands:

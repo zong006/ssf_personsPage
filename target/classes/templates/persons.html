@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>DOB</th>
+            <th>Phone </th>
+            <th>Email</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="person : ${persons}">
+            <td th:utext="${person.id}"></td>
+            <td th:utext="${person.firstName}"></td>
+            <td th:utext="${person.lastName}"></td>
+            <!-- to formate the Java Date object -->
+            <td th:utext="${#dates.format(person.dateOfBirth,'yyyy-MM-dd')}"></td> 
+            <td th:utext="${person.phoneNumber}"></td>
+            <td th:utext="${person.email}"></td>
+            <td>
+                <!-- this form submits firstName, lastName, age as data to the server  as key-value pairs-->
+                <!-- where the key is "firstName", value is the first name entry and vice versa -->
+                <!-- in the controller, use @ModelAttribute Person p to bind these values to an instantiation of a person in the method -->
+                <form th:action="@{/person/update/{id}(id=${person.id})}" th:object="${person}" method="get">
+                    <input type="hidden" name="id" th:value="${person.id}" />
+                    <!-- <input type="hidden" name="firstName" th:value="${person.firstName}" />
+                    <input type="hidden" name="lastName" th:value="${person.lastName}" />
+                    <input type="hidden" name="dateOfBirth" th:value="${#dates.format(person.dateOfBirth, 'yyyy-MM-dd')}" />
+                    <input type="hidden" name="phoneNumber" th:value="${person.phoneNumber}" />
+                    <input type="hidden" name="email" th:value="${person.email}" /> -->
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <!-- this form submits firstName, lastName, age as data to the server  as key-value pairs-->
+                <!-- where the key is "firstName", value is the first name entry and vice versa -->
+                <!-- in the controller, use @ModelAttribute Person p to bind these values to an instantiation of a person in the method -->
+                <form th:action="@{/person/delete}" th:object="${person}" method="POST">
+                    <input type="hidden" name="id" th:value="${person.id}" />
+                    <input type="hidden" name="firstName" th:value="${person.firstName}" />
+                    <input type="hidden" name="lastName" th:value="${person.lastName}" />
+                    <input type="hidden" name="dateOfBirth" th:value="${#dates.format(person.dateOfBirth, 'yyyy-MM-dd')}" />
+                    <input type="hidden" name="phoneNumber" th:value="${person.phoneNumber}" />
+                    <input type="hidden" name="email" th:value="${person.email}" />
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <form th:action="@{/personForm}" method="get">
+                <input type="submit" value="Add Person"/>
+            </form>
+        </tr>
+    </table>
+</body>
+</html>

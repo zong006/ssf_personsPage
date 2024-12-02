@@ -74,6 +74,12 @@ public class PersonService implements Util{
         String dob = fields[2]; //Tue Oct 29 00:00:00 GMT+08:00 2024
         SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
         Date dDob = sdf.parse(dob);
+
+        // ----------------------- for saving as long -----------------------
+        long epochTime = dDob.getTime(); //use this format to save date data
+        Date dateFromEpoch = new Date(epochTime);
+        // ----------------------- for saving as long -----------------------
+
         p.setDateOfBirth(dDob);
 
         p.setEmail(fields[3]);
