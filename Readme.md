@@ -7,13 +7,13 @@
 - run  --> mvn clean package --> mvn spring-boot::run to run as per normal
 
 ### To run using Docker
-- docker build -t <name of programme> .
-- docker run -it -p <port number>:3000 <name of programme> 
+- docker build -t <<name of programme>> .
+- docker run -it -p <<port number>>:3000 <<name of programme>>
 <!-- cos port 3000 is specified in dockerfile -->
 - docker ps 
-- docker stop <name of programmes>
+- docker stop <<name of programmes>>
 Other docker commands:
-- docker rmi -f <image name>
+- docker rmi -f <<image name>>
 - docker images ls
 -docker images prune
 
