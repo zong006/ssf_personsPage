@@ -29,3 +29,8 @@ this sets up the spring-boot project as an additional service in the railway pro
     - REDISUSER
     - REDISPORT
     - REDIS_PASSWORD
+
+- if there is an API key, add the variable into application.properties: api_key=${API_KEY}
+    - use @Value("${api_key}") in the relevant code (probably service code) to use it. (see 2022 crypto paper, or prac1 on github)
+    - add environment variable to railway service
+
