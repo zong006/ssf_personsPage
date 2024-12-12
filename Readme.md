@@ -34,3 +34,6 @@ this sets up the spring-boot project as an additional service in the railway pro
     - use @Value("${api_key}") in the relevant code (probably service code) to use it. (see 2022 crypto paper, or prac1 on github)
     - add environment variable to railway service
 
+- to access the redis service on railway, either to check if data is saved or whatnot
+    - go to the redis service -> variables -> copy the REDIS_PUBLIC_URL
+    - on command line, type >>> redis-cli -u "insert REDIS_PUBLIC_URL"
