@@ -100,9 +100,12 @@ public class PersonController {
         }
 
         personService.addPerson(p);
-        personService.saveData(p, DataDir.filePath);
+        personService.saveData(p);
         List<Person> personList = personService.getPersons();
         model.addAttribute("persons", personList);
         return "redirect:/persons";
     }
+
+
+    
 }

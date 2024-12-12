@@ -18,11 +18,11 @@ import vttp.ssf_person_12.data.DataDir;
 import vttp.ssf_person_12.model.Person;
 
 @Service
-public class PersonService implements DataDir{
+public class PersonService {
     
     public List<Person> getPersons() throws IOException, ParseException{
         List<Person> personList = new ArrayList<>();
-        File filePath = new File(dataFolder, DataDir.filePath);
+        File filePath = new File(DataDir.filePath);
         FileReader fr = new FileReader(filePath);
         BufferedReader br = new BufferedReader(fr);
 
@@ -65,17 +65,17 @@ public class PersonService implements DataDir{
         addPerson(p);
     }
 
-    public void saveData(Person p, String file) throws IllegalArgumentException, IllegalAccessException, IOException{
+    public void saveData(Person p) throws IllegalArgumentException, IllegalAccessException, IOException{
 
         String toSave = parsePerson(p);
 
-        File dataFolder = new File(DataDir.dataFolder);
+        // File dataFolder = new File(DataDir.dataFolder);
         
-        if(!dataFolder.exists()){
-            dataFolder.mkdir();
-        }
+        // if(!dataFolder.exists()){
+        //     dataFolder.mkdir();
+        // }
 
-        File filePath = new File(dataFolder, file);
+        File filePath = new File(DataDir.filePath);
 
         FileWriter fw = new FileWriter(filePath, true);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -91,9 +91,9 @@ public class PersonService implements DataDir{
     public void updateCSV(Person p, boolean toDelete) throws IOException, IllegalArgumentException, IllegalAccessException{
 
         String lineRead = "";
-        File dataFolder = new File(DataDir.dataFolder);
-        File filepath = new File(dataFolder, DataDir.filePath);
-        File tempFile = new File(dataFolder, DataDir.tempFile);
+        // File dataFolder = new File(DataDir.dataFolder);
+        File filepath = new File(DataDir.filePath);
+        File tempFile = new File(DataDir.tempFile);
 
         FileReader fr = new FileReader(filepath);
         BufferedReader br = new BufferedReader(fr);
@@ -113,8 +113,8 @@ public class PersonService implements DataDir{
                     continue;
                 }
                 else {
-                    System.out.println(parsePerson(p));
-                    saveData(p, DataDir.tempFile);
+                    saveData(p);
+                    break;
                 }
             }
         }

@@ -21,7 +21,13 @@ COPY .mvn .mvn
 # downloads dependencies defines in pom.xml. then compile and package as jar
 RUN mvn package -Dmaven.test.skip=true
 
+RUN apt update && apt install -y curl
+
+
 ENV SERVER_PORT=3000
 EXPOSE ${SERVER_PORT}
 
-ENTRYPOINT java -jar target/ssf_person_12-0.0.1-SNAPSHOT.jar
+HEALTHCHECK --interval=10s --timeout=5s --start-period=3s --retries=3 \
+   CMD curl http://localhost:${SERVER_PORT}/health || exit 1
+
+ENTRYPOINT SERVER_PORT=${SERVER_PORT} java -jar target/ssf_person_12-0.0.1-SNAPSHOT.jar

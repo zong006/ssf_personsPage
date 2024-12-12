@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome page</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+        <p th:text="${message}"></p>
+        
+        <a th:href="@{/persons}">Enter persons page</a> 
+</body>
+</html>

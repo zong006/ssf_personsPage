@@ -1,0 +1,38 @@
+FROM maven:3.9.9-eclipse-temurin-23 as compiler
+
+ARG COMPIILE_DIR=/code_folder
+    
+# directory where either source code resides or i copy my project to 
+WORKDIR ${COMPIILE_DIR}
+
+# copy required files into the image
+COPY pom.xml .
+COPY mvnw .
+COPY mvnw.cmd .
+COPY src src
+COPY .mvn .mvn 
+
+RUN chmod a+x mvnw && mvn package -Dmaven.test.skip=true
+
+FROM maven:3.9.9-eclipse-temurin-23
+ARG DEPLOY_DIR=/app
+    
+WORKDIR ${DEPLOY_DIR}
+COPY --from=compiler /code_folder/target/ssf_person_12-0.0.1-SNAPSHOT.jar target/app.jar
+COPY src/main/resources /app/resources
+
+
+RUN apt update && apt install -y curl
+
+# SERVER_PORT is the port that the container is using, 3000 in this case
+# when i do docker un -p localhost:3000, port 8080 will be connected to port 3000 of the container
+ENV SERVER_PORT=3000
+EXPOSE ${SERVER_PORT}
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=3s --retries=3 \
+   CMD curl http://localhost:${SERVER_PORT}/health || exit 1
+# the localhost in this line refers to the container. no change when deploying on railway since it refers to the container itself
+
+
+ENTRYPOINT SERVER_PORT=${SERVER_PORT} java -jar target/app.jar
+# if use the command :: docker run -it -e SERVER_PORT=4000 -p 8081:4000 person_page
